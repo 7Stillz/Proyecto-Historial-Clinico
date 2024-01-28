@@ -23,15 +23,15 @@ void Usuario::menu(){
 		cout<<"                                                                          \n\n";
 		cout<<"\t|  Pulse 1 para INICIAR SESION              |"<<endl;
 		cout<<"\t|  Pulse 2 para REGISTRARSE                 |"<<endl;
-		cout<<"\t|  Pulse 3 si olvido su CONTRASEÑA          |"<<endl;
+		cout<<"\t|  Pulse 3 si olvido su CONTRASENIA         |"<<endl;
 		cout<<"\t|  Pulse 4 para SALIR                       |"<<endl;
     int op;
 		cout<<"\n\t\t\t Por favor escriba su eleccion: "; cin>>op;
 		cout<<endl;
 		switch(op){
 			case 1:
-        	login();
-        		break;
+        login();
+        break;
 			case 2:
         registration();
         break;
@@ -49,14 +49,14 @@ void Usuario::menu(){
 }
 void Usuario::login(){
   int count=0;
-  string id, pass;
+  string id, pass, nombre, DNI;
   system("cls");
   cout << "\t\t\t Nombre de usuario: ";
   cin >> userID;
   cout << "\t\t\t Contraseña: ";
   cin >> password;
   ifstream input("DataBase.txt");
-  while(input>>id>>pass){
+  while(input>>id>>pass>>nombre>>DNI>>edad){
     if(id==userID && pass==password){
       count = 1;
       system("cls");
@@ -95,29 +95,31 @@ void Usuario::forgot() {
 
   system("cls");
   cout << "\t\t\t Has olvidado tu contrase, no te preocupes \n";
-  cout << "Presiona 1 para buscar su id por su nombre de usuario ";
-  cout << "Presiona 2 para volver al menu ";
+  cout << "Presiona 1 para buscar su id por su nombre de usuario "<<"\n";
+  cout << "Presiona 2 para volver al menu "<<"\n";
   cout << "\t\t\t Ingrese su eleccion: ";
   cin >> option;
 
   switch (option) {
     case 1: {
       int conts = 0;
-      string suserId, sId, spass;
+      string suserId, sId, spass, sNombre, sDNI;
+      int sEdad;
       cout << "\n\t\t\t Ingrese nombre de usuario: ";
       cin >> suserId;
 
       ifstream f2("DataBase.txt");
-      while (f2 >> sId >> spass) {
+      while (f2 >> sId >> spass >> sNombre >> sDNI >> sEdad) {
             if (sId == suserId) {
                 conts = 1;
+                break;
             }
-            }
-            f2.close();
+      }
+      f2.close();
 
             if (conts == 1) {
                 cout << "\n\n Se encontro su cuenta! \n";
-                cout << "\n\n Su contraseña es: " << spass << endl;
+                cout << "\n Su contraseña es: " << spass << endl;
                 menu();
             } else {
                 cout << "\n\t Lo siento no se encontro su cuenta! \n";
@@ -139,5 +141,7 @@ int main(){
   setlocale(LC_ALL, "");
   Usuario u;
   u.menu();
+  cout<<"\n";
+  system("pause");
   return 0;
 }
